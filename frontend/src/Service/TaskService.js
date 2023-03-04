@@ -29,16 +29,7 @@ export function MarkAscompleated(id) {
     return axios.put(url.BASE_URL+'/task/mark-complete/' + id);
 }
 
-
-
-
-
-
-
-
 // here we are calling apis  for user regisration and authentication  
-
-
 
 export function Registeruser(data) {
     return axios.post(url.BASE_URL+'/savedata', data)
@@ -47,8 +38,16 @@ export function Registeruser(data) {
 
 
 export function Login(data) {
-    return axios.post(url.BASE_URL+'/fetchdata', data)
+    console.log(data)
+    return axios.post(url.BASE_URL+'/user/auth', data)
 }
+
+
+
+
+
+
+
 
 
 

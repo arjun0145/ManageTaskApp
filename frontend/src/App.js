@@ -9,6 +9,7 @@ import UserProfile from './components/UserProfile';
 import Aboutus from './components/Aboutus';
 import ContactUs from './components/ContactUs';
 import Career from './components/Career';
+import UserDashbord from './Screens/UserDashbord';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path='/about' element={<Aboutus></Aboutus>}></Route>
           <Route path='/contact' element={<ContactUs></ContactUs>}></Route>
           <Route path='/career' element={<Career></Career>}></Route>
+          <Route path='/user/dashbord' element={<UserDashbord/>}></Route>
 
 
 

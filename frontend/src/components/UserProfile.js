@@ -2,12 +2,20 @@ import React, { useState } from 'react'
 import { Alert, Button, Container } from 'react-bootstrap'
 import NavigationBar2 from './Navigationbar2'
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 function UserProfile() {
 
     let data = localStorage.getItem("data")
     data = JSON.parse(data)
     const [userdetail, setUserdetail] = useState(data)
+    const navigate = useNavigate()
+
+
+
+    const logout = () =>{
+        navigate("/")
+    }
     return (
         <div>
 
@@ -31,9 +39,9 @@ function UserProfile() {
 
                     <Button className='mx-3'> Edit Personal Details </Button>
                     <Button className='mx-3'> Change Password </Button>
-                    <Link to="/">
-                    <Button className='mx-3'> Logout </Button>
-                    </Link> 
+                    
+                    <Button className='mx-3' onClick={logout}> Logout </Button>
+                    
 
                 </Container>
 

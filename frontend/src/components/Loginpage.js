@@ -5,9 +5,14 @@ import { Login } from '../Service/TaskService';
 import Success from './Success';
 import TaskList from './TaskList'
 import NavigationBar2 from './Navigationbar2';
+import swal from 'sweetalert'
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Loginpage() {
+
+
+    // here are states 
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -15,39 +20,57 @@ function Loginpage() {
     const [CurrentUser, setCurrentUser] = useState()
     const [isLogin, setIsLogin] = useState(false)
     const [ani, setAni] = useState(false)
+    const navigate = useNavigate()
+
+
+      
+
+
+    // here are functions     
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        let data = { email: username, password: password }
+        let x = await Login(data)
+        console.log(x.data.authdata)
+        if (x.data.authdata.status === 1) {
+            swal({
+                title: "loged in successfully ",
+                text: "",
+                icon: "success",
+                 })            // here we set into localstorage  
+            localStorage.setItem("data", JSON.stringify(x.data.authdata.userdetails))
+            navigate("/user/dashbord")
 
+        }
+        else{
+            if (x.data.authdata.status === 0){      
+                swal({
+                    title: " Invalid Password ",
+                    text: "try again with correct password",
+                    icon: "error",
+                     })                               
+            }else if (x.data.authdata.status === 2){
 
+                swal({
+                    title: " Invalid User Details   ",
+                    text: "try again with correct password",
+                    icon: "error",
+                     }) 
 
-        try {
-
-            let data = { email: username, password: password }
-            let x = await Login(data)
-            setCurrentUser(x.data)
-
-            // here we set into localstorage  
-
-            localStorage.setItem("data", JSON.stringify(x.data))
-            if (x) {
-                setTimeout(() => {
-                    setAni(false)
-                    setIsLogin(true)
-
-                }, 3000)
-                setAni(true)
             }
 
-        } catch (error) {
-
-            setTimeout(() => {
-                setIsAlert(false)
-            }, 2000)
-            setIsAlert(true)
         }
 
 
+
+
+
+
+
     }
+
     return (
         <div>
 
@@ -102,21 +125,12 @@ function Loginpage() {
 
                             </Container>}
 
-
-
-
                     </Container>
 
                 </div>
                 :
                 <div>
-                    {/* <NavigationBar2></NavigationBar2>
-                    <Container className='mt-5'>
-
-                    <Alert className='text-center'>  <b>{CurrentUser.name} Ji Welcome to TaskManager</b> </Alert>
-
-
-                    </Container> */}
+                 
 
 
                     <TaskList></TaskList>
